@@ -21,11 +21,11 @@
         <tr>
             <th colspan="2">
                 <img src="http://cf.realhousemoms.com/wp-content/uploads/2014/10/White-Chocolate-Mocha-Latte-Real-housemoms-Better-than-Starbucks.png" style="height:35%;border: 3px solid #ccc"
-                onclick="hideShowIngredients()"
+                onclick="hideShowIngredients('WCMIngredients')"
                 >
             </th>
         </tr>
-        <table id="ingredients" align="center">
+        <table id="WCMIngredients" class="ingredients" align="center">
             <tr>
                 <td>2% Milk</td>
                 <td>1 1/4 cups</td>
@@ -56,9 +56,11 @@
         </tr>
         <tr>
             <th colspan="2">
-                <img src="http://www.savingdessert.com/wp-content/uploads/2016/07/Mocha-Frappucchino-10-800x534.jpg" style="height:35%;border: 3px solid #ccc">
+                <img src="http://www.savingdessert.com/wp-content/uploads/2016/07/Mocha-Frappucchino-10-800x534.jpg" style="height:35%;border: 3px solid #ccc"
+                onclick="hideShowIngredients('MFIngredients')"
+                >
             </th>
-        <table id="ingredients" align="center">
+        <table id="MFIngredients" class="ingredients" align="center">
             </tr>
             <tr>
                 <td>Expresso, chilled</td>
@@ -92,12 +94,12 @@
 </body>
 
 <script>
-    function hideShowIngredients(){
-        var Display = document.getElementById('ingredients');
-        if (Display.style.display === 'none') {
-            Display.style.display = 'block';
+    function hideShowIngredients(idName){
+        var dis = document.getElementById(idName);
+        if (dis.style.display === 'none') {
+            dis.style.display = 'block';
         } else {
-            Display.style.display = 'none';
+            dis.style.display = 'none';
         } 
     }
 
@@ -109,7 +111,7 @@
         font-size: 20px;
     }
 
-    #ingredients {
+    .ingredients {
         display: none;
     }
 
