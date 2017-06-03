@@ -20,10 +20,12 @@
         </tr>
         <tr>
             <th colspan="2">
-                <img src="http://cf.realhousemoms.com/wp-content/uploads/2014/10/White-Chocolate-Mocha-Latte-Real-housemoms-Better-than-Starbucks.png" style="height:35%;border: 3px solid #ccc">
+                <img src="http://cf.realhousemoms.com/wp-content/uploads/2014/10/White-Chocolate-Mocha-Latte-Real-housemoms-Better-than-Starbucks.png" style="height:35%;border: 3px solid #ccc"
+                onclick="hideShowIngredients()"
+                >
             </th>
         </tr>
-        <table id="ingredients">
+        <table id="ingredients" align="center">
             <tr>
                 <td>2% Milk</td>
                 <td>1 1/4 cups</td>
@@ -56,7 +58,7 @@
             <th colspan="2">
                 <img src="http://www.savingdessert.com/wp-content/uploads/2016/07/Mocha-Frappucchino-10-800x534.jpg" style="height:35%;border: 3px solid #ccc">
             </th>
-        <table id="ingredients">
+        <table id="ingredients" align="center">
             </tr>
             <tr>
                 <td>Expresso, chilled</td>
@@ -89,11 +91,26 @@
     </table>
 </body>
 
-<script></script>
+<script>
+    function hideShowIngredients(){
+        var Display = document.getElementById('ingredients');
+        if (Display.style.display === 'none') {
+            Display.style.display = 'block';
+        } else {
+            Display.style.display = 'none';
+        } 
+    }
+
+
+</script>
 
 <style>
     #rAdd {
         font-size: 20px;
+    }
+
+    #ingredients {
+        display: none;
     }
 
     input {
