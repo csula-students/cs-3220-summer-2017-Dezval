@@ -1,3 +1,12 @@
+.checkOut {
+    text-align: right;  
+}
+
+footer {
+    width: 60%;
+    text-align: center;
+}
+
 nav {
     display: flex;
     justify-content: center;
@@ -16,9 +25,11 @@ h1, h2{
      text-align:center;
 }
 
-#Menu {
-    width:75%;
-    margin: auto;
+#Menu, .food, .orders {
+    width:60%;
+    margin: 0 auto;
+    
+
 }
 
 #foodMenu td {
@@ -39,3 +50,4 @@ img.foodImg {
     display: flex;
     justify-content: space-between;
 }
+
