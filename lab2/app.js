@@ -100,8 +100,8 @@ class CheckoutButton {
         // TODO: replace with actual item
         console.log(this.root.dataset);
         cartItems.push({
-            name: document.querySelector('this.checkout-button').dataset.name,
-            price: document.querySelector('this.checkout-button').dataset.price
+            name: document.querySelector('.checkout-button').dataset.name,
+            price: document.querySelector('.checkout-button').dataset.price
         });
         console.log(cartItems);
         this.store.cartItems = cartItems;

@@ -25,7 +25,7 @@ h1, h2{
      text-align:center;
 }
 
-#Menu, .food, .orders {
+#Menu, .food, .orders, .cart-table {
     width:60%;
     margin: 0 auto;
     
