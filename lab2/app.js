@@ -1,6 +1,6 @@
 // single state store
 class Store {
-    constructor (storage) {
+    constructor(storage) {
         this.storage = storage; // assuming local storage will be passed in as storage
         // these are the key name you can use in Store
         this.CART_KEY = 'CART';
@@ -9,28 +9,28 @@ class Store {
     }
 
     // you can get item by store.cartItems
-    get cartItems () {
+    get cartItems() {
         return JSON.parse(this.storage.getItem(this.CART_KEY));
     }
 
     // to call setter, simply "assign" like store.cartItems = something
-    set cartItems (cartItems) {
+    set cartItems(cartItems) {
         this.storage.setItem(this.CART_KEY, JSON.stringify(cartItems));
     }
 
-    get queue () {
+    get queue() {
         return JSON.parse(this.storage.getItem(this.QUEUE_KEY));
     }
 
-    set queue (queue) {
+    set queue(queue) {
         this.storage.setItem(this.QUEUE_KEY, JSON.stringify(queue));
     }
 
-    get foods () {
+    get foods() {
         return JSON.parse(this.storage.getItem(this.FOODS_KEY));
     }
 
-    set foods (foods) {
+    set foods(foods) {
         this.storage.setItem(this.FOODS_KEY, JSON.stringify(foods));
     }
 }
@@ -44,29 +44,29 @@ class Cart {
         this.init();
     }
 
-    init () {
+    init() {
         // Render a list of items under root element
         this.render();
         // TODO: attach remove cart items to rendered HTML
     }
 
-    destroy () {
+    destroy() {
         // TODO: remove all the events attached from init
     }
 
     // remove an item from shopping cart
-    removeItem (item) {
+    removeItem(item) {
         // TODO: logic to remove an item from cart
         // call render method when the item is removed to update view
         this.render();
     }
 
-    placeOrder () {
+    placeOrder() {
         // add item to statuses in store as status "in progress"
     }
 
     // render a list of item under root element
-    render () {
+    render() {
         console.log(this.store.cartItems);
         let tbody = this.root.querySelector('tbody');
         // using innerHTML to render a list of table row item under tbody
@@ -86,14 +86,13 @@ class CheckoutButton {
         this.init();
     }
 
-    init () {
+    init() {
         this.root.addEventListener('click', this.onClick);
     }
 
-    destroy () {
-    }
+    destroy() {}
 
-    addItemToCart () {
+    addItemToCart() {
         // hint: you can use `dataset` to access data attributes
         // See passing data from HTML to JavaScript from course note
         let cartItems = this.store.cartItems || [];
@@ -116,22 +115,22 @@ class StatusTable {
         init();
     }
 
-    init () {
+    init() {
         // attach click event listener to table header row on each column
         render();
     }
 
-    destroy () {
+    destroy() {
         // remove all the events attached from init
     }
 
-    sort (columnName) {
+    sort(columnName) {
         // after sorting the array of statuses, re render item to update view
         render();
     }
 
     // render rows of items under table using root.innerHTML
-    render () {
+    render() {
 
     }
 }
@@ -143,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // use querySelector to find the table element (preferably by id selector)
     // let statusTable = document.querySelector('');
     // // use querySelector to find the cart element (preferably by id selector)
-    let cart = document.querySelector('.cart-table');
+    let cart = document.querySelector('#cart-table');
     let checkoutButtons = document.querySelectorAll('.checkout-button');
 
     let store = new Store(window.localStorage);
@@ -154,7 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
         new Cart(cart, store);
     }
     if (checkoutButtons && checkoutButtons.length) {
-        for (var i = 0; i < checkoutButtons.length; i ++) {
+        for (var i = 0; i < checkoutButtons.length; i++) {
             new CheckoutButton(checkoutButtons[i], store);
         }
     }

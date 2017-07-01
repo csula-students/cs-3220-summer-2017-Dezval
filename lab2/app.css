@@ -1,5 +1,5 @@
 .checkOut {
-    text-align: right;  
+    text-align: right;
 }
 
 footer {
@@ -17,25 +17,27 @@ nav {
     margin: 0;
     padding: 0;
 }
+
 #navbar li {
     display: inline-block;
 }
 
-h1, h2{
-     text-align:center;
+h1,
+h2 {
+    text-align: center;
 }
 
-#Menu, .food, .orders, .cart-table {
-    width:60%;
+#Menu,
+.food,
+.orders,
+#cart-table {
+    width: 60%;
     margin: 0 auto;
-    
-
 }
 
 #foodMenu td {
     padding: .5em 1em;
     text-align: center;
-    
 }
 
 .addButton {
@@ -43,11 +45,10 @@ h1, h2{
 }
 
 img.foodImg {
-    width:100px;
+    width: 100px;
 }
 
 .topButtonMenu {
     display: flex;
     justify-content: space-between;
 }
-
