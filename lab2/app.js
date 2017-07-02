@@ -67,14 +67,37 @@ class Cart {
 
     // render a list of item under root element
     render() {
-        console.log(this.store.cartItems);
+        for (var i = 0; i < this.store.cartItems.length; i++){
+            console.log(this.store.cartItems[i]);
+        }
+        // console.log(this.store.cartItems);
         let tbody = this.root.querySelector('tbody');
+
         // using innerHTML to render a list of table row item under tbody
-        tbody.innerHTML = `<tr class="item">
-            <td>test</td>
-            <td>test</td>
-            <td>test</td>
-        <tr>`
+        tbody.innerHTML = getHtmlForCart(this.store.cartItems);
+
+        let deleteButtons = this.root.querySelectorAll('.delete-button');
+
+        for (var i = 0; i < deleteButtons.length; i ++) {
+            let deleteBttn = deleteButtons[i];
+            deleteBttn.addEventListener('click', () => {
+                alert('You are deleting' + deleteBttn);
+                this.store.cartItems.splice(i,1);
+                this.render();
+            });
+        }
+    }
+
+    getHtmlForCart(items){
+        var innerHtml = '';
+        for(var i = 0; i < items.length; i++){
+            innerHtml +=
+                "<tr>" +
+                    "<td>" + items[i].name + "</td>" +
+                    "<td>" + items[i].price + "</td>" +
+                "</tr>";
+        }
+        return innerHtml;
     }
 }
 
@@ -90,7 +113,9 @@ class CheckoutButton {
         this.root.addEventListener('click', this.onClick);
     }
 
-    destroy() {}
+    destroy() {
+        this.root.addEventListener('click', this.onClick);
+    }
 
     addItemToCart() {
         // hint: you can use `dataset` to access data attributes
@@ -99,8 +124,8 @@ class CheckoutButton {
         // TODO: replace with actual item
         console.log(this.root.dataset);
         cartItems.push({
-            name: document.querySelector('.checkout-button').dataset.name,
-            price: document.querySelector('.checkout-button').dataset.price
+            name: this.root.dataset.name,
+            price: this.root.dataset.price
         });
         console.log(cartItems);
         this.store.cartItems = cartItems;
@@ -141,7 +166,7 @@ class StatusTable {
 document.addEventListener('DOMContentLoaded', () => {
     // use querySelector to find the table element (preferably by id selector)
     // let statusTable = document.querySelector('');
-    // // use querySelector to find the cart element (preferably by id selector)
+    // use querySelector to find the cart element (preferably by id selector)
     let cart = document.querySelector('#cart-table');
     let checkoutButtons = document.querySelectorAll('.checkout-button');
 
@@ -157,4 +182,5 @@ document.addEventListener('DOMContentLoaded', () => {
             new CheckoutButton(checkoutButtons[i], store);
         }
     }
+
 });
