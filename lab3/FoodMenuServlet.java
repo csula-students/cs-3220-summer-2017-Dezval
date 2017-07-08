@@ -44,7 +44,7 @@ public class FoodMenuServlet extends HttpServlet {
                             "</tr>");
         }
         out.print("</table>");
-        out.println("<a href='../admin/foods'>Admin Page View</a>");
+        out.println("<a href='admin/foods'>Admin Page View</a>");
     }
 }
 
