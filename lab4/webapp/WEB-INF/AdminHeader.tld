@@ -1,0 +1,12 @@
+<taglib>
+    <tlib-version>1.0</tlib-version>
+    <jsp-version>2.0</jsp-version>
+    <short-name>adminHeader</short-name>
+
+
+    <tag>
+        <name>AdminHeader</name>
+        <tag-class>AdminHeader</tag-class>
+        <body-content>empty</body-content>
+    </tag>
+</taglib>
