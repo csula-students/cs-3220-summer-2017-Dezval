@@ -20,6 +20,6 @@ public class deleteFood extends HttpServlet {
         entries.remove(index);
         getServletContext().setAttribute("entries", entries);
 
-        response.sendRedirect("foodsAdminJSP");
+        response.sendRedirect("inventory");
     }
 }

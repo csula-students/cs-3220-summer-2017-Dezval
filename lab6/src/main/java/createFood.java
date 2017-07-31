@@ -1,3 +1,5 @@
+
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,23 +13,24 @@ import java.util.List;
  */
 @WebServlet("createFoodJSP")
 public class createFood extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/WEB-INF/createFood.jsp").forward(request, response);
+    public void doGet( HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        request.getRequestDispatcher("/WEB-INF/jdbc/createFood.jsp").forward(request, response);
 
     }
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<FoodEntry> entries = (List<FoodEntry>) getServletContext().getAttribute("entries");
-        int id = entries.size();
         String name = request.getParameter("name");
         String description = request.getParameter("description");
         double price = Double.parseDouble(request.getParameter("price"));
 
-        entries.add(new FoodEntry(id, name, price, description));
-        getServletContext().setAttribute("entries", entries);
+//        newEntry.setCreated(Date.from(Instant.EPOCH));
 
+        foodDAO dao = new foodDAO();
+        FoodEntry newEntry = new FoodEntry(dao.list().size(), name, price, description);
+        dao.add(newEntry);
         response.sendRedirect("inventory");
     }
+
 }

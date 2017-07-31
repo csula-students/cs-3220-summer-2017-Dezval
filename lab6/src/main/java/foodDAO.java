@@ -1,6 +1,5 @@
 import dao.DAO;
 import dao.Database;
-import jdbc.GuestBookEntry;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -20,7 +19,7 @@ public class foodDAO implements DAO<FoodEntry> {
             while (rs.next()) {
                 list.add(new FoodEntry(
                         rs.getInt("id"),
-                        rs.getString("Foodame"),
+                        rs.getString("FoodName"),
                         rs.getDouble("price"),
                         rs.getString("description")
                 ));

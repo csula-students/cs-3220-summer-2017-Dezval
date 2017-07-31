@@ -5,12 +5,12 @@
     <h3>List of Foods</h3>
 
     <table>
-        <c:forEach items="${entries}" var="entry">
+        <c:forEach items="${list}" var="listEntry">
             <tr>
-                <td>${entry.name}</td>
-                <td>${entry.description}</td>
-                <td>$${entry.getPrice()}</td>
-                <td><a href="<c:url value='/addToCartJSP?id=${entry.getId()}' />"><button>Add to Cart</button></a></td>
+                <td>${listEntry.name}</td>
+                <td>${listEntry.description}</td>
+                <td>$${listEntry.getPrice()}</td>
+                <td><%--<a href="<c:url value='/addToCartJSP?id=${entry.getId()}' />">--%><button>Add to Cart</button><%--</a>--%></td>
             </tr>
         </c:forEach>
     </table>
