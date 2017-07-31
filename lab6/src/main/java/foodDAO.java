@@ -32,17 +32,19 @@ public class foodDAO implements DAO<FoodEntry> {
     }
 
     public Optional<FoodEntry> get(int id) {
+
         return Optional.empty();
+
     }
 
     public void add(FoodEntry entry) {
         Database db = new Database();
         try (Connection c = db.connection()) {
-            PreparedStatement pstmt = c.prepareStatement("INSERT INTO food (id ,name, price, description) VALUES (?, ?, ?, ?)");
+            PreparedStatement pstmt = c.prepareStatement("INSERT INTO food (id ,foodName, description, price) VALUES (?, ?, ?, ?)");
             pstmt.setInt(1,entry.getId());
             pstmt.setString(2, entry.getName());
-            pstmt.setDouble(3, entry.getPrice());
-            pstmt.setString(4, entry.getDescription());
+            pstmt.setString(3, entry.getDescription());
+            pstmt.setDouble(4, entry.getPrice());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -52,11 +54,11 @@ public class foodDAO implements DAO<FoodEntry> {
     public void update(FoodEntry entry) {
         Database db = new Database();
         try (Connection c = db.connection()) {
-            PreparedStatement pstmt = c.prepareStatement("UPDATE food SET id = ?, name = ?, price = ?, description = ? WHERE food.id = ?");
+            PreparedStatement pstmt = c.prepareStatement("UPDATE food SET id = ?, foodName = ?, description = ?, price = ? WHERE food.id = ?");
             pstmt.setInt(1, entry.getId());
             pstmt.setString(2, entry.getName());
-            pstmt.setDouble(3, entry.getPrice());
-            pstmt.setString(4, entry.getDescription());
+            pstmt.setString(3, entry.getDescription());
+            pstmt.setDouble(4, entry.getPrice());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -72,6 +74,5 @@ public class foodDAO implements DAO<FoodEntry> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        this.list().remove(id);
     }
 }

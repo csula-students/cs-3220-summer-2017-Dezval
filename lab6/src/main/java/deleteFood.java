@@ -10,15 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 public class deleteFood extends HttpServlet {
     public void doGet( HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-        List<FoodEntry> entries = (List<FoodEntry>) getServletContext().getAttribute("entries");
-        int index = -1;
-        for (int i = 0; i < entries.size(); i ++) {
-            if (entries.get(i).getId() == id) {
-                index = i;
-            }
-        }
-        entries.remove(index);
-        getServletContext().setAttribute("entries", entries);
+
+        foodDAO dao = new foodDAO();
+        dao.delete(id);
 
         response.sendRedirect("inventory");
     }

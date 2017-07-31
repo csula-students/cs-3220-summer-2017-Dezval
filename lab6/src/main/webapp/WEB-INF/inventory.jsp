@@ -18,7 +18,7 @@
                 <td>${entry.name}</td>
                 <td>${entry.getPrice()}</td>
                 <td>${entry.description}</td>
-                <td><%--<a href="<c:url value='/deleteJSP?id=${entry.getId()}' />">--%><button>Delete Food</button><%--</a>--%></td>
+                <td><a href="<c:url value='/deleteJSP?id=${entry.getId()}' />"><button>Delete Food</button></a></td>
             </tr>
         </c:forEach>
     </table>

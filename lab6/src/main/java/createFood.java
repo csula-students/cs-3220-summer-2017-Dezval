@@ -15,7 +15,7 @@ import java.util.List;
 public class createFood extends HttpServlet {
     public void doGet( HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        request.getRequestDispatcher("/WEB-INF/jdbc/createFood.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/createFood.jsp").forward(request, response);
 
     }
 
@@ -28,7 +28,7 @@ public class createFood extends HttpServlet {
 //        newEntry.setCreated(Date.from(Instant.EPOCH));
 
         foodDAO dao = new foodDAO();
-        FoodEntry newEntry = new FoodEntry(dao.list().size(), name, price, description);
+        FoodEntry newEntry = new FoodEntry(dao.list().size()+1, name, price, description);
         dao.add(newEntry);
         response.sendRedirect("inventory");
     }

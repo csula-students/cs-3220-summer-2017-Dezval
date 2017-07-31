@@ -15,10 +15,15 @@ import java.util.List;
 public class AddToCart extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String id = request.getParameter("id");
+        int id = Integer.parseInt(request.getParameter("id")) - 1;
         List<Order> cartItems = (List<Order>) getServletContext().getAttribute("cartItems");
-        List<FoodEntry> entries = (List<FoodEntry>) getServletContext().getAttribute("entries");
-        cartItems.add(new Order(cartItems.size(), entries.get(Integer.parseInt(id)), "Customer Name", Order.Status.IN_QUEUE, Date.from(Instant.EPOCH)));
+        foodDAO dao = new foodDAO();
+        cartItems.add(new Order(
+                cartItems.size(),
+                dao.list().get(id),
+                "Customer",
+                Order.Status.IN_QUEUE,
+                Date.from(Instant.EPOCH)));
         getServletContext().setAttribute("cartItems", cartItems);
 
         response.sendRedirect("index");
