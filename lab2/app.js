@@ -51,13 +51,24 @@ class Cart {
     }
 
     destroy() {
-        // TODO: remove all the events attached from init
+        // TODO: remove all the events attached from
+        //destroy item is done inside render()
+        this.store.cartItems.removeItem("CART");
     }
 
     // remove an item from shopping cart
-    removeItem(item) {
+    removeItem(itemName) {
         // TODO: logic to remove an item from cart
         // call render method when the item is removed to update view
+        let cartItems = this.items || [];
+        var tempItems = [];
+        for(var i = 0; i < cartItems.length; i++){
+            if(cartItems[i].name === itemName){
+                continue;
+            }
+            tempItems.push(cartItems[i]);
+        }
+        this.store.cartItems = tempItems;
         this.render();
     }
 
@@ -66,22 +77,60 @@ class Cart {
     }
 
     // render a list of item under root element
-    render() {
-        console.log(this.store.cartItems);
-        let tbody = this.root.querySelector('tbody');
-        // using innerHTML to render a list of table row item under tbody
-        tbody.innerHTML = `<tr class="item">
-            <td>test</td>
-            <td>test</td>
-            <td>test</td>
-        <tr>`
+    getHtmlForCart(items){
+        var innerHtml = '';
+        for(var i = 0; i < items.length; i++){
+            innerHtml +=
+            "<tr>" +
+            "<td>" + items[i].name + "</td>" +
+            "<td>" + items[i].price + "</td>" +
+            "<td>" + items[i].quantity + "</td>" +
+            "<td><button class='delete-button'>Remove</button></td>" +
+            "</tr>";
+        }
+        return innerHtml;
     }
+
+    render() {
+        for (var i = 0; i < this.store.cartItems.length; i++){
+            console.log("TESTER: " + this.store.cartItems[i].name);
+        }
+        // console.log(this.store.cartItems);
+        let tbody = this.root.querySelector('tbody');
+
+        // using innerHTML to render a list of table row item under tbody
+        tbody.innerHTML = this.getHtmlForCart(this.store.cartItems);
+
+        let deleteButtons = this.root.querySelectorAll('.delete-button');
+
+        let cartItems = this.store.cartItems || [];
+        for (var i = 0; i < deleteButtons.length; i ++) {
+            var tempName = this.store.cartItems[i].name;
+            console.log("Checking current button @" + i + ", name: " + tempName);
+            deleteButtons[i].innerHTML = "Remove item " + (i + 1);
+            deleteButtons[i].addEventListener('click', function(i){
+                alert('You are deleting: ' + i +" | " + tempName);
+                // this.removeItem(tempName);
+                this.render();
+            });
+
+        }
+    }
+
+    handleElement(i) {
+    document.getElementById("b"+i).onclick=function() {
+        alert(i);
+    };
+}
+
+
 }
 
 class CheckoutButton {
     constructor(root, store) {
         this.root = root;
         this.store = store;
+        this.items = store.cartItems;
         this.onClick = () => this.addItemToCart();
         this.init();
     }
@@ -90,19 +139,32 @@ class CheckoutButton {
         this.root.addEventListener('click', this.onClick);
     }
 
-    destroy() {}
+    destroy() {
+        this.root.addEventListener('click', this.onClick);
+    }
 
     addItemToCart() {
         // hint: you can use `dataset` to access data attributes
         // See passing data from HTML to JavaScript from course note
-        let cartItems = this.store.cartItems || [];
-        // TODO: replace with actual item
-        console.log(this.root.dataset);
+        let cartItems = this.items || [];
+
+        console.log("LOG: " + this.root.dataset.quantity);
+        for(var i = 0; i < cartItems.length; i++){
+            console.log(" test @ "+i+": " + cartItems[i].name + " | " + this.root.dataset.name)
+            if(cartItems[i].name === this.root.dataset.name){
+                var temp = Number(cartItems[i].quantity) + 1;
+                console.log("temp = " + temp);
+                cartItems[i].quantity = temp;
+                this.store.cartItems = cartItems;
+                return;
+            }
+        }
         cartItems.push({
-            name: document.querySelector('.checkout-button').dataset.name,
-            price: document.querySelector('.checkout-button').dataset.price
+            name: this.root.dataset.name,
+            price: this.root.dataset.price,
+            quantity: this.root.dataset.quantity
         });
-        console.log(cartItems);
+        console.log("CartItems: " + cartItems);
         this.store.cartItems = cartItems;
     }
 }
@@ -135,14 +197,105 @@ class StatusTable {
     }
 }
 
+// continue from Lab2 with Store, CheckoutButton, Cart components
+class Inventory {
+    constructor(root, store) {
+        this.root = root;
+        this.store = store;
+        this.init();
+    }
+
+    init () {
+        this.render();
+        // TODO: attach event listeners like click to remove items after rendering
+    }
+
+    destroy () {
+        // TODO: remove event listeners added from the init above
+    }
+
+    removeItem (itemName) {
+        // TODO: function to remove item given item name from store
+    }
+
+    render () {
+        // using innerHTML to render inventory listing
+    }
+}
+
+class Menu {
+    constructor(root, store) {
+        this.root = root;
+        this.store = store;
+        this.init();
+    }
+
+    init () {
+        this.render();
+    }
+
+    render () {
+        // render a list of food menu from store using innerHTML
+
+        for (var i = 0; i < this.store.foods.length; i++){
+            console.log(this.store.foods[i]);
+        }
+        // console.log(this.store.cartItems);
+        let tbody = this.root.querySelector('tbody');
+
+        // using innerHTML to render a list of table row item under tbody
+        tbody.innerHTML = getHtmlForCart(this.store.foods);
+
+        let deleteButtons = this.root.querySelectorAll('.delete-button');
+
+        for (var i = 0; i < deleteButtons.length; i ++) {
+            let deleteBttn = deleteButtons[i];
+            deleteBttn.addEventListener('click', () => {
+                alert('You are deleting' + deleteBttn);
+                this.store.foods.splice(i,1);
+                this.render();
+            });
+        }
+
+
+    }
+}
+
+class CreateFood {
+    constructor(root, store) {
+        this.root = root; // root should be the container of the form itself
+        this.store = store;
+        this.init();
+    }
+
+    init () {
+        // attach click event to create button
+        this.root.addEventListener('click', this.onClick);
+    }
+
+    createFood () {
+        // will need to do querySelector to find out every single form element
+        // to get their values before creating a new food
+        // after creating a new food item, add it to store
+        let foods = this.store.foods || [];
+        foods.push({
+            name: this.root.dataset.name,
+            price: this.root.dataset.price
+        });
+        this.store.foods = foods;
+    }
+}
+
 // DOMContentLoaded event will allow us to run the following function when
 // everything is ready. Think of the following code will only be executed by
 // the end of document
 document.addEventListener('DOMContentLoaded', () => {
     // use querySelector to find the table element (preferably by id selector)
     // let statusTable = document.querySelector('');
-    // // use querySelector to find the cart element (preferably by id selector)
-    let cart = document.querySelector('#cart-table');
+    // use querySelector to find the cart element (preferably by id selector)
+
+    let cart = document.querySelector('.cart-table');
+
     let checkoutButtons = document.querySelectorAll('.checkout-button');
 
     let store = new Store(window.localStorage);
@@ -157,4 +310,5 @@ document.addEventListener('DOMContentLoaded', () => {
             new CheckoutButton(checkoutButtons[i], store);
         }
     }
+
 });
