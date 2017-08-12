@@ -30,18 +30,19 @@ h2 {
 #Menu,
 .food,
 .orders,
-#cart-table {
-    width: 60%;
+.cart-table {
+    width: 70%;
     margin: 0 auto;
+    text-align: center;
+    /*border: solid 1px;*/
 }
 
-#foodMenu td {
-    padding: .5em 1em;
+td {
     text-align: center;
 }
 
 .addButton {
-    width: 80px;
+    width: 100px;
 }
 
 img.foodImg {
